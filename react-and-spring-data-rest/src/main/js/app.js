@@ -39,7 +39,7 @@ class App extends React.Component {
 				/**
 				 * Filter unneeded JSON Schema properties, like uri references and
 				 * subtypes ($ref).
-				 * test 1 
+				 * test main branch
 				 */
 				Object.keys(schema.entity.properties).forEach(function (property) {
 					if (schema.entity.properties[property].hasOwnProperty('format') &&
