@@ -28,11 +28,12 @@ jobs:
           git config --global credential.helper store
           echo "https://USERNAME:${{ secrets.AZURE_DEVOPS_PAT }}@dev.azure.com" > ~/.git-credentials
 
-      # Step 4: Pull the latest changes from Azure DevOps (to ensure you're up-to-date)
+      # Step 4: Pull the latest changes from Azure DevOps (force resolve conflicts in favor of GitHub)
       - name: Pull from Azure DevOps
         run: |
           git fetch azure-devops
-          git pull azure-devops main --rebase
+          git pull azure-devops main --rebase || git rebase --abort
+          git reset --hard FETCH_HEAD
 
       # Step 5: Push changes to Azure DevOps
       - name: Push to Azure DevOps
