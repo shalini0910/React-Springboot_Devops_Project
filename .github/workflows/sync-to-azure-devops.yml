@@ -1,0 +1,36 @@
+name: Sync to Azure DevOps
+
+# Trigger this workflow when pushing changes to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the GitHub repository
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v2
+
+      # Step 2: Configure Git user
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # Step 3: Add Azure DevOps remote
+      - name: Add Azure DevOps remote
+        run: |
+          git remote add azure-devops https://DevOpsOrgERP@dev.azure.com/DevOpsOrgERP/DevOpsProject/_git/ProjectDevOps
+        env:
+          AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+
+      # Step 4: Push changes to Azure DevOps
+      - name: Push to Azure DevOps
+        run: |
+          git push azure-devops HEAD:refs/heads/main
+        env:
+          AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
