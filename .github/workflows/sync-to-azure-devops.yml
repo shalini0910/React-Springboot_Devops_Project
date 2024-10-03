@@ -24,7 +24,7 @@ jobs:
       # Step 3: Add Azure DevOps remote
       - name: Add Azure DevOps remote
         run: |
-          git remote add azure-devops https://DevOpsOrgERP@dev.azure.com/DevOpsOrgERP/DevOpsProject/_git/ProjectDevOps
+          git remote add azure-devops https://dev.azure.com/DevOpsOrgERP/DevOpsProject/_git/ProjectDevOps
         env:
           AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
 
