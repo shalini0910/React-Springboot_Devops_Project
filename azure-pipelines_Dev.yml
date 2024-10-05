@@ -5,13 +5,13 @@
 trigger:
   branches:
     include:
-    - refs/heads/Dev
+    - Build.SourceBranchName
 name: $(date:yyyyMMdd)$(rev:.r)
 resources:
  repositories:
   - repository: self
     type: git
-    ref: refs/heads/Dev
+    ref: Build.SourceBranchName
 
 variables:
   # Container registry service connection established during pipeline creation
