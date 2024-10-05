@@ -1,10 +1,10 @@
 # Use the official Maven image as the base image
 FROM maven:3.9.0-amazoncorretto-8 AS build
 
-# Set the working directory
+# Set the working directory new
 WORKDIR /app
 
-#Version4
+#Version6
 # Copy the pom.xml and any other necessary files to the container
 COPY . ./src
 
