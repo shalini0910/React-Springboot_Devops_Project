@@ -14,7 +14,8 @@ variables:
   imageRepository: 'shaliniprojectdevops_Dev'
   containerRegistry: 'containerregisterydevops.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/react-and-spring-data-rest/Dockerfile'
-  tag: 'Dev- $(Build.BuildId)'
+  tag: |
+            myprefix-$(Build.BuildId)
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
