@@ -4,7 +4,7 @@ FROM maven:3.9.0-amazoncorretto-8 AS build
 # Set the working directory
 WORKDIR /app
 
-#Version5
+#Version6
 # Copy the pom.xml and any other necessary files to the container
 COPY . ./src
 
