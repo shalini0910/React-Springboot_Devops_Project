@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
+- Dev
 
 resources:
 - repo: self
@@ -11,10 +11,10 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'd6e93b90-3daf-4435-83e9-e2493d41fe87'
-  imageRepository: 'shaliniprojectdevops'
+  imageRepository: 'shaliniprojectdevops_Dev'
   containerRegistry: 'containerregisterydevops.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/react-and-spring-data-rest/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: 'Dev- $(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
