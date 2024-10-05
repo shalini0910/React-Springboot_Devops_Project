@@ -1,0 +1,50 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  branches:
+    include:
+      - dev
+      - main
+
+name: $(date:yyyyMMdd)$(rev:.r)
+
+resources:
+  repositories:
+    - repository: self
+      type: git
+
+variables:
+  # Container registry service connection
+  dockerRegistryServiceConnection: 'd6e93b90-3daf-4435-83e9-e2493d41fe87'
+  containerRegistry: 'containerregisterydevops.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/react-and-spring-data-rest/Dockerfile'
+
+  # Define different repositories and tags based on the branch
+  imageRepository: |
+    $[eq(variables['Build.SourceBranchName'], 'dev') ? 'shaliniprojectdevops_Dev' : 'Main_shaliniprojectdevops']
+  tag: |
+    $[eq(variables['Build.SourceBranchName'], 'dev') ? 'Dev_$(Build.BuildId)' : 'Main_$(Build.BuildId)']
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build and push Docker image
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
