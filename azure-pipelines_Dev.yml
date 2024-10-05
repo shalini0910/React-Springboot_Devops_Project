@@ -4,13 +4,14 @@
 
 trigger:
   branches:
-    include: dev
+    include:
+    - refs/heads/Dev
 name: $(date:yyyyMMdd)$(rev:.r)
 resources:
  repositories:
   - repository: self
     type: git
-    ref: dev
+    ref: refs/heads/Dev
 
 variables:
   # Container registry service connection established during pipeline creation
