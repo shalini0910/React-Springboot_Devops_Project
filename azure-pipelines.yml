@@ -50,10 +50,10 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    # - task: CopyFiles@2
-    #   inputs:
-    #     Contents: 'aks-deploy-from-acr.yaml'
-    #     TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: CopyFiles@2
+      inputs:
+        Contents: 'aks-deploy-from-acr.yaml'
+        TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -81,10 +81,10 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    # - task: CopyFiles@2
-    #   inputs:
-    #     Contents: 'aks-deploy-from-acr-prod.yaml'
-    #     TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: CopyFiles@2
+      inputs:
+        Contents: 'aks-deploy-from-acr-prod.yaml'
+        TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
