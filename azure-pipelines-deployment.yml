@@ -22,8 +22,14 @@ stages:
     - download: current  # Download the latest artifacts from the build pipeline
       artifact: drop
     - script: |
-        echo "Using the latest image tag from build artifacts: $(imageTag)"
-        sed -i 's|#{Build.BuildId}#|$(imageTag)|g' $(Pipeline.Workspace)/drop/aks-deploy-from-acr-dev.yaml
+        echo "Reading Build Tag from artifact..."
+        buildTag=$(cat $(Pipeline.Workspace)/drop/build_tag.txt)
+        echo "##vso[task.setvariable variable=buildTag]$buildTag"  # Set it as a variable for use in the pipeline
+      displayName: 'Read Build Tag'
+
+    # - script: |
+    #     echo "Using the latest image tag from build artifacts: $(imageTag)"
+    #     sed -i 's|#{Build.BuildId}#|$(imageTag)|g' $(Pipeline.Workspace)/drop/aks-deploy-from-acr-dev.yaml
 
 - stage: MainDeployment
   displayName: Deploy to Prod
