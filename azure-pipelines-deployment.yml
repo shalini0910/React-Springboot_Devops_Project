@@ -5,7 +5,7 @@ trigger:
       - main
   paths:
     include:
-      - aks-deploy-from-acr-dev.yaml
+      - aks-deploy-from-acr.yaml
       - aks-deploy-from-acr-prod.yaml
 
 pool:
