@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-spring
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: react-spring
+  template:
+    metadata:
+      labels:
+        app: react-spring
+    spec:
+      containers:
+      - name: react-spring
+        image: containerregisterydevops.azurecr.io/shaliniprojectdevops_dev:#{Build.BuildId}#
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: react-spring
+    k8s-app: react-spring
+  name: react-spring
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  type: LoadBalancer
+  selector:
+    app: react-spring
