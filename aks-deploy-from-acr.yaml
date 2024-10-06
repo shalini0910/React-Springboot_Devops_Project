@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ProjectDevOps-deployment
+  name: react-spring
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: ProjectDevOps-app
+      app: react-spring
   template:
     metadata:
       labels:
-        app: ProjectDevOps-app
+        app: react-spring
     spec:
       containers:
-      - name: ProjectDevOps-app
+      - name: react-spring
         image: containerregisterydevops.azurecr.io/shaliniprojectdevops_dev:#{Build.BuildId}#
         imagePullPolicy: Always
         ports:
@@ -24,9 +24,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: ProjectDevOps-app
-    k8s-app: ProjectDevOps-app
-  name: ProjectDevOps-app
+    app: react-spring
+    k8s-app:react-spring
+  name: react-spring
 spec:
   ports:
   - name: http
@@ -35,4 +35,4 @@ spec:
     targetPort: 8085
   type: LoadBalancer
   selector:
-    app: ProjectDevOps-app
+    app: react-spring
