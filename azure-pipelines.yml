@@ -9,7 +9,7 @@ trigger:
       - main
   paths:
     exclude:
-      - aks-deploy-from-acr-dev.yaml
+      - aks-deploy-from-acr.yaml
       - aks-deploy-from-acr-prod.yaml
 
 name: $(date:yyyyMMdd)$(rev:.r)
