@@ -19,8 +19,6 @@ stages:
   - job: Deploy
     displayName: Deploy to Dev AKS
     steps:
-    - download: current  # Download the latest artifacts from the build pipeline
-      artifact: drop
     - script: |
         echo "Reading Build Tag from artifact..."
         buildTag=$(cat $(Pipeline.Workspace)/drop/build_tag.txt)
