@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: ProjectDevOps 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ProjectDevOps
+  template:
+    metadata:
+      labels:
+        app: ProjectDevOps 
+    spec:
+      containers:
+        - name: ProjectDevOps 
+          image: containerregisterydevops.azurecr.io/shaliniprojectdevops_dev
+          ports:
+          - containerPort: 80
