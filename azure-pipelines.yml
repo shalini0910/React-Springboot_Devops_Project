@@ -35,7 +35,7 @@ stages:
       vmImage: $(vmImageName)
     variables:
       imageRepository: 'shaliniprojectdevops_Dev'
-      tag: 'Dev_$(Build.BuildId)'
+      tag: '$(Build.BuildId)'
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
@@ -66,7 +66,7 @@ stages:
       vmImage: $(vmImageName)
     variables:
       imageRepository: 'Main_shaliniprojectdevops'
-      tag: 'Main_$(Build.BuildId)'
+      tag: '$(Build.BuildId)'
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
