@@ -19,16 +19,15 @@ stages:
   - job: Deploy
     displayName: Deploy to Dev AKS
     steps:
-    - script: |
-        echo "Reading Build Tag from artifact..."
-        buildTag=$(cat $(Pipeline.Workspace)/drop/build_tag.txt)
-        echo "##vso[task.setvariable variable=buildTag]$buildTag"  # Set it as a variable for use in the pipeline
-      displayName: 'Read Build Tag'
-
-    # - script: |
-    #     echo "Using the latest image tag from build artifacts: $(imageTag)"
-    #     sed -i 's|#{Build.BuildId}#|$(imageTag)|g' $(Pipeline.Workspace)/drop/aks-deploy-from-acr-dev.yaml
-
+    - task: CopyFiles@2
+      inputs:
+        Contents: 'aks-deploy-from-acr.yaml'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
 - stage: MainDeployment
   displayName: Deploy to Prod
   condition: eq(variables['Build.SourceBranchName'], 'main')
@@ -36,8 +35,12 @@ stages:
   - job: Deploy
     displayName: Deploy to Prod AKS
     steps:
-    - download: current  # Download the latest artifacts from the build pipeline
-      artifact: drop
-    - script: |
-        echo "Using the latest image tag from build artifacts: $(imageTag)"
-        sed -i 's|#{Build.BuildId}#|$(imageTag)|g' $(Pipeline.Workspace)/drop/aks-deploy-from-acr-prod.yaml
+    - task: CopyFiles@2
+      inputs:
+        Contents: 'aks-deploy-from-acr-prod.yaml'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
