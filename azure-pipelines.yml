@@ -44,7 +44,7 @@ stages:
     - script: |
         pwd
         ls -lrt
-        cd react-and-spring-data-rest && mvn test
+        cd react-and-spring-data-rest && mvn test && npm test
       displayName: Test
            
     - task: Docker@2
