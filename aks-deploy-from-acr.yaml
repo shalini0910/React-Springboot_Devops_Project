@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ProjectDevOps-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ProjectDevOps-app
+  template:
+    metadata:
+      labels:
+        app: ProjectDevOps-app
+    spec:
+      containers:
+      - name: ProjectDevOps-app
+        image: containerregisterydevops.azurecr.io/shaliniprojectdevops_dev:#{Build.BuildId}#
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8085
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ProjectDevOps-app
+    k8s-app: ProjectDevOps-app
+  name: ProjectDevOps-app
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8085
+  type: LoadBalancer
+  selector:
+    app: ProjectDevOps-app
