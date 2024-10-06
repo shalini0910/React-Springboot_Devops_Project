@@ -79,7 +79,7 @@ stages:
           $(tag)
     - task: CopyFiles@2
       inputs:
-        Contents: 'aks-deploy-from-acr.yaml'
+        Contents: 'aks-deploy-from-acr-prod.yaml'
         TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
