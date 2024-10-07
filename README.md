@@ -1,14 +1,8 @@
-Azure Pipeline Status :
 
-[![Build Status](https://dev.azure.com/DevOpsOrgERP/DevOpsProject/_apis/build/status%2Fshalini0910.ProjectDevOps?branchName=main)](https://dev.azure.com/DevOpsOrgERP/DevOpsProject/_build/latest?definitionId=2&branchName=main)
-
-
-
-
-## **Cloud-DevOps Assignment Overview**
+## **React SprintBoot Application Overview**
 
 ### **Objective**
-As a DevOps engineer, the task is to architect and deploy an application, comprising a Java backend, React frontend, and an in-memory database (which can be migrated to a real cloud database). The goal is to build CI/CD pipelines, cloud infrastructure, and document the architecture, as well as provide automation for cleanup and scaling.
+As a DevOps engineer, the task is to architect and deploy an application, comprising a Java backend, React frontend with Infrastructure as a code. The goal is to build CI/CD pipelines, cloud infrastructure, and document the architecture, as well as provide automation for cleanup and scaling.
 
 ---
 
@@ -25,43 +19,46 @@ As a DevOps engineer, the task is to architect and deploy an application, compri
 ### **Infrastructure Design**
 - **Cloud Provider**: Azure
 - **Components**:
-  - Azure Kubernetes Service (AKS) or Azure App Service for container hosting.
-  - Azure SQL/Cosmos DB for database storage.
+  - Azure Kubernetes Service (AKS) for container hosting.
+  - Azure Devops project to implement CICD
+  - Docker tool to containerize the image
   - Azure Storage for any persistent file storage requirements.
   - Azure Virtual Networks for networking.
 
 ### **High-level Design Diagram**
 
-![pipeline.png](/.attachments/pipeline-7cdf4b92-89ac-475a-b240-a1323adc50ed.png)
+# ![FlowDiagram (2).jpg](react-and-spring-data-rest/Media/FlowDiagram.jpg)
 ---
 
 ## **CI/CD Pipelines**
 
-### **Backend Pipeline**
+### **Pipeline**
 - **Tasks**:
   - Build Java Spring code.
   - Unit testing and code quality checks.
   - Docker image creation.
+  - Stages Creation : Dev & Prod
   - Push image to Azure Container Registry.
+  - Create the Artifacts for code files.
+  - Create Artifacts for AKS Configuration file.
   - Deploy to the appropriate environment (e.g., AKS or Azure App Service).
 
-### **Frontend Pipeline**
-- **Tasks**:
-  - Build and test React code.
-  - Dockerize the frontend.
-  - Push to Azure Container Registry.
-  - Deploy to the target environment.
+
+| Pipeline                  | Pipeline Status                                                                                                                                                                                                                                |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Code Pipeline       | [![Build Status](https://dev.azure.com/DevOpsOrgERP/DevOpsProject/_apis/build/status%2FProjectDevOps_Deploy%20Configurations?branchName=main)](https://dev.azure.com/DevOpsOrgERP/DevOpsProject/_build/latest?definitionId=14&branchName=main) |
+| AKS Config Pipeline | [![Build Status](https://dev.azure.com/DevOpsOrgERP/DevOpsProject/_apis/build/status%2FProjectDevOps?branchName=main)](https://dev.azure.com/DevOpsOrgERP/DevOpsProject/_build/latest?definitionId=12&branchName=main)                         |
 
 ---
 
 ## **Infrastructure as Code (IaC) Pipeline**
 
 ### **Infrastructure Components**:
-- **Terraform/ARM Templates**:
+- **ARM Templates**:
   - Define infrastructure components such as virtual networks, load balancers, databases, and application hosting environments.
   
 ### **Cleanup and Destroy Functionality**:
-- Implement functionality to tear down the infrastructure using Terraform destroy or ARM template cleanup scripts.
+- Implement functionality to tear down the infrastructure using ARM template cleanup scripts.
 
 ---
 
@@ -83,14 +80,38 @@ As a DevOps engineer, the task is to architect and deploy an application, compri
 ## **Instructions for Deployment**
 
 1. **Fork the Repository**:
-   - Detailed instructions on how to fork the repository, configure cloud settings, and deploy the solution on a separate Azure account.
-   
-2. **Configuration**:
-   - Set up service connections, environment variables, and secrets for deploying to Azure.
+   - Azure Repository.
+https://dev.azure.com/DevOpsOrgERP/DevOpsProject/_git/ProjectDevOps
+   - GitHub Repository
+https://github.com/shalini0910/ProjectDevOps
 
-3. **Pipeline Execution**:
-   - Step-by-step guide on how to run the pipelines and verify the deployment.
+
+2. **Configuration**:
+
+   - Create AKS Cluster in azure portal or using AKS Deploy IAC file
+   - Create Azure Container registery in Azure portal
+   - Install the Docker tool
+   - Have Azure DevOps project dashboard in https://dev.azure.com/
+   - Modify K8S manifest file per ACR, image name for AKS Deployment
+      - azure-pipelines-deployment.yml.
+   - Modify the pipeline files as per your cloud configurations.Use the below files.
+      - azure-pipelines.yml
+      - aks-deploy-from-acr.yaml
+      - aks-deploy-from-acr-prod.yaml
+
+3. **Service Connection **:
+   - Establish the service connection in azure devops settings as per below to connect AKS, ACR :
+
+![image.png](react-and-spring-data-rest/Media/Screenshot 2024-10-07 193700.png)
+
+4. **Pipeline Execution**:
+   - Follow the azure-pipelines.yml for building the pipeline and IAC for for releasing to AKS.
 
 ---
 
-This structure organizes the requirements into sections, making it easier for teams to follow through and understand the deliverables.
+Demo :
+
+[Watch video](https://www.youtube.com/embed/_kmy5FjpOnc?si=EEQlHfUQUrOS8kim)
+
+
+
