@@ -21,6 +21,7 @@ As a DevOps engineer, the task is to architect and deploy an application, compri
 - **Components**:
   - Azure Kubernetes Service (AKS) for container hosting.
   - Azure Devops project to implement CICD
+  - Azure Resource Manager Service connection in ADO
   - Docker tool to containerize the image
   - Azure Storage for any persistent file storage requirements.
   - Azure Virtual Networks for networking.
@@ -56,9 +57,13 @@ As a DevOps engineer, the task is to architect and deploy an application, compri
 ### **Infrastructure Components**:
 - **ARM Templates**:
   - Define infrastructure components such as virtual networks, load balancers, databases, and application hosting environments.
+       -Use the azure-pipelines-iac.yaml & aks-arm-templates-iac.json
+       -Create the ARM service connection in Azure devops
+       -Provide all required details such as azure subscription, resource group, AKS cluster name.
+       -Create the build pipeline using above IAC code file
   
 ### **Cleanup and Destroy Functionality**:
-- Implement functionality to tear down the infrastructure using ARM template cleanup scripts.
+- Implemented parameterized functionality to destroy the AKS cluster and resource group.
 
 ---
 
