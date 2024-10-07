@@ -11,6 +11,8 @@ trigger:
     exclude:
       - aks-deploy-from-acr.yaml
       - aks-deploy-from-acr-prod.yaml
+      - aks-arm-templates-iac.json
+      - azure-pipelines-iac.yaml
 
 name: $(date:yyyyMMdd)$(rev:.r)
 

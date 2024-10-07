@@ -1,0 +1,65 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [
+      {
+        "type": "Microsoft.ContainerService/managedClusters",
+        "apiVersion": "2023-03-01",
+        "location": "northeurope",
+        "name": "Kubernetes_Cluster_temp",
+        "properties": {
+          "kubernetesVersion": "1.29.8",
+          "dnsPrefix": "devops",
+          "agentPoolProfiles": [
+            {
+              "name": "agentpool",
+              "count": 1,
+              "vmSize": "Standard_D2as_v4",
+              "osDiskSizeGB": 128,
+              "osDiskType": "Managed",
+              "maxPods": 30,
+              "type": "VirtualMachineScaleSets",
+              "osType": "Linux",
+              "osSKU": "Ubuntu",
+              "mode": "System",
+              "nodeImageVersion": "AKSUbuntu-2204gen2containerd-202409.23.0",
+              "enableAutoScaling": false,
+              "upgradeSettings": {
+                "maxSurge": "10%"
+              }
+            }
+          ],
+          "servicePrincipalProfile": {
+            "clientId": "msi"
+          },
+          "enableRBAC": true,
+          "networkProfile": {
+            "networkPlugin": "kubenet",
+            "loadBalancerSku": "Standard",
+            "loadBalancerProfile": {
+              "managedOutboundIPs": {
+                "count": 1
+              },
+              "backendPoolType": "nodeIPConfiguration"
+            },
+            "podCidr": "10.244.0.0/16",
+            "serviceCidr": "10.0.0.0/16",
+            "dnsServiceIP": "10.0.0.10",
+            "outboundType": "loadBalancer",
+            "ipFamilies": ["IPv4"]
+          },
+          "identity": {
+            "type": "SystemAssigned"
+          }
+        },
+        "identity": {
+          "type": "SystemAssigned"
+        },
+        "sku": {
+          "name": "Base",
+          "tier": "Free"
+        }
+      }
+    ]
+  }
+  
